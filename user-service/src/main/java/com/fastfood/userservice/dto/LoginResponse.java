@@ -6,33 +6,81 @@ public class LoginResponse {
     private String username;
     private String email;
     private String role;
-    private String token;
+
+    // JWT Information
+    private String accessToken;
+    private String refreshToken;
+    private String tokenType;
+    private Long expiresIn;
+
     private String message;
 
-    public LoginResponse(Long userId, String username, String email, String role, String token, String message) {
+    public LoginResponse() {
+    }
+
+    public LoginResponse(Long userId, String username, String email, String role, String accessToken, String refreshToken, String tokenType, Long expiresIn, String message) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.role = role;
-        this.token = token;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+        this.tokenType = tokenType;
+        this.expiresIn = expiresIn;
         this.message = message;
     }
     public Long getUserId() {
         return userId;
     }
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
     public String getUsername() {
         return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
     }
     public String getEmail() {
         return email;
     }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getRole() {
         return role;
     }
-    public String getToken() {
-        return token;
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public String getAccessToken() {
+        return accessToken;
+    }
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+    public String getTokenType() {
+        return tokenType;
+    }
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
+    }
+    public Long getExpiresIn() {
+        return expiresIn;
+    }
+    public void setExpiresIn(Long expiresIn) {
+        this.expiresIn = expiresIn;
     }
     public String getMessage() {
         return message;
+    }
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

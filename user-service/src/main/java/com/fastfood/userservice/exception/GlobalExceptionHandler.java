@@ -14,14 +14,27 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    //User Already Exists
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ApiResponse> handleUserAlreadyExists(
             UserAlreadyExistsException ex) {
 
-        return ResponseEntity.status(HttpStatus.CONFLICT)
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(new ApiResponse(false, ex.getMessage()));
     }
 
+    //Invalid Login Credentials
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ApiResponse> handleInvalidCredentials(
+            InvalidCredentialsException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    //Bean Validation Errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ValidationErrorResponse>
     handleValidationException(
@@ -41,28 +54,41 @@ public class GlobalExceptionHandler {
                         LocalDateTime.now(),
                         errors);
 
-        return ResponseEntity.badRequest()
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(response);
     }
 
+    //Invalid Refresh Token
+    @ExceptionHandler(InvalidRefreshTokenException.class)
+    public ResponseEntity<ApiResponse> handleInvalidRefreshToken(InvalidRefreshTokenException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    //Expired Refresh Token
+    @ExceptionHandler(RefreshTokenExpiredException.class)
+    public ResponseEntity<ApiResponse> handleRefreshTokenExpired(RefreshTokenExpiredException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(new ApiResponse(false, ex.getMessage()));
+    }
+
+    //any other unhandled exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleGenericException(
             Exception ex) {
 
-        ex.printStackTrace(); // useful while developing
+        // Replace with logger.error(...) in production
+        ex.printStackTrace();
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ApiResponse(
                         false,
-                        ex.getMessage()));
-
-    }
-
-    @ExceptionHandler(InvalidCredentialsException.class)
-    public ResponseEntity<ApiResponse> handleInvalidCredentials(
-            InvalidCredentialsException ex) {
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(new ApiResponse(false, ex.getMessage()));
+                        "Something went wrong. Please try again later."));
     }
 }
