@@ -1,10 +1,7 @@
 package com.fastfood.userservice.service;
 
 import com.fastfood.userservice.config.JwtProperties;
-import com.fastfood.userservice.dto.LoginRequest;
-import com.fastfood.userservice.dto.LoginResponse;
-import com.fastfood.userservice.dto.RefreshTokenRequest;
-import com.fastfood.userservice.dto.RefreshTokenResponse;
+import com.fastfood.userservice.dto.*;
 import com.fastfood.userservice.entity.RefreshToken;
 import com.fastfood.userservice.entity.User;
 import com.fastfood.userservice.exception.InvalidCredentialsException;
@@ -95,5 +92,13 @@ public class AuthService {
                 "Bearer",
                 jwtProperties.getExpiration() / 1000
         );
+    }
+
+    public LogoutResponse logout(LogoutRequest request) {
+        refreshTokenService.revokeRefreshToken(request.getRefreshToken());
+
+        return new LogoutResponse(
+                true,
+                "Logout Successful");
     }
 }
