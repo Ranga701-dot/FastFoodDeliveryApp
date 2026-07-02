@@ -14,12 +14,14 @@ public class CustomUserDetails implements UserDetails {
     public CustomUserDetails(User user) {
         this.user = user;
     }
+
+    public static CustomUserDetails fromUser(User user) {
+        return new CustomUserDetails(user);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return List.of(
-                new SimpleGrantedAuthority("ROLE_" + user.getRole())
-        );
+        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
     }
     @Override
     public String getPassword() {

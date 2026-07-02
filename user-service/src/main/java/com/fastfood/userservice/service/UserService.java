@@ -7,6 +7,7 @@ import com.fastfood.userservice.dto.RegisterRequest;
 import com.fastfood.userservice.dto.RegisterResponse;
 import com.fastfood.userservice.entity.RefreshToken;
 import com.fastfood.userservice.entity.User;
+import com.fastfood.userservice.enums.Role;
 import com.fastfood.userservice.exception.InvalidCredentialsException;
 import com.fastfood.userservice.exception.UserAlreadyExistsException;
 import com.fastfood.userservice.repository.UserRepository;
@@ -38,7 +39,7 @@ public class UserService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole("CUSTOMER");
+        user.setRole(Role.CUSTOMER);
         user.setActive(true);
         user.setEmailVerified(false);
         user.setFailedLoginAttempts(0);

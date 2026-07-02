@@ -1,11 +1,13 @@
 package com.fastfood.userservice.dto;
 
+import com.fastfood.userservice.enums.Role;
+
 public class LoginResponse {
 
     private Long userId;
     private String username;
     private String email;
-    private String role;
+    private Role role;
 
     // JWT Information
     private String accessToken;
@@ -18,7 +20,7 @@ public class LoginResponse {
     public LoginResponse() {
     }
 
-    public LoginResponse(Long userId, String username, String email, String role, String accessToken, String refreshToken, String tokenType, Long expiresIn, String message) {
+    public LoginResponse(Long userId, String username, String email, Role role, String accessToken, String refreshToken, String tokenType, Long expiresIn, String message) {
         this.userId = userId;
         this.username = username;
         this.email = email;
@@ -47,10 +49,10 @@ public class LoginResponse {
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
     public String getAccessToken() {

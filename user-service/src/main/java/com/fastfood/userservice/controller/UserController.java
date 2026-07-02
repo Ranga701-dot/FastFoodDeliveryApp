@@ -1,21 +1,33 @@
 package com.fastfood.userservice.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
     @GetMapping("/profile")
-    public String profile() {
+    @PreAuthorize("hasRole('CUSTOMER')")
+    public String customerProfile() {
+        return "Welcome Customer";
+    }
 
-        return "Welcome " +
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication()
-                        .getName();
+    @GetMapping("/restaurant")
+    @PreAuthorize("hasRole('RESTAURANT_OWNER')")
+    public String restaurantOwner() {
+        return "Welcome Restaurant Owner";
+    }
+
+    @GetMapping("/delivery")
+    @PreAuthorize("hasRole('DELIVERY_PARTNER')")
+    public String deliveryPartner() {
+        return "Welcome Delivery Partner";
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminDashboard() {
+        return "Welcome Admin";
     }
 }
