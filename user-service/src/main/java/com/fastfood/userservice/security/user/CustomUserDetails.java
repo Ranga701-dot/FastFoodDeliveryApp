@@ -1,6 +1,7 @@
 package com.fastfood.userservice.security.user;
 
 import com.fastfood.userservice.entity.User;
+import com.fastfood.userservice.enums.UserStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,7 +38,7 @@ public class CustomUserDetails implements UserDetails {
     }
     @Override
     public boolean isAccountNonLocked() {
-        return user.getActive();
+        return user.getStatus() != UserStatus.LOCKED;
     }
     @Override
     public boolean isCredentialsNonExpired() {
@@ -45,6 +46,6 @@ public class CustomUserDetails implements UserDetails {
     }
     @Override
     public boolean isEnabled() {
-        return user.getActive();
+        return user.getStatus() == UserStatus.ACTIVE;
     }
 }

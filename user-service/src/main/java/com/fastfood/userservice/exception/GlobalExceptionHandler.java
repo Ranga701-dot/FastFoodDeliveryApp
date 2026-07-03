@@ -87,8 +87,13 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiResponse(
-                        false,
-                        "Something went wrong. Please try again later."));
+                .body(new ApiResponse(false, "Something went wrong. Please try again later."));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ApiResponse> handleUserNotFound(
+            UserNotFoundException ex) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, ex.getMessage()));
     }
 }

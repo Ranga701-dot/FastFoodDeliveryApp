@@ -1,6 +1,7 @@
 package com.fastfood.userservice.entity;
 
 import com.fastfood.userservice.enums.Role;
+import com.fastfood.userservice.enums.UserStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -20,8 +21,9 @@ public class User {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Boolean active;
+    private UserStatus status;
     @Column(nullable = false)
     private Boolean emailVerified;
     @Column(nullable = false)
@@ -79,11 +81,11 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-    public Boolean getActive() {
-        return active;
+    public UserStatus getStatus() {
+        return status;
     }
-    public void setActive(Boolean active) {
-        this.active = active;
+    public void setStatus(UserStatus status) {
+        this.status = status;
     }
     public Boolean getEmailVerified() {
         return emailVerified;
